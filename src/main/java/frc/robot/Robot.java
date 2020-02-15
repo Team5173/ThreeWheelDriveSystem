@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.*;
 
 //Rev Imports
 import com.revrobotics.CANSparkMax;
@@ -35,6 +36,19 @@ public class Robot extends TimedRobot {
 
   //Xbox Controller
   XboxController controller = new XboxController(1);
+
+  private static final String kDefaultAuto = "Default";
+  private static final String kCustomAuto = "My Auto";
+  private String m_autoSelected;
+
+  public void autonomousInit() {
+
+  }
+
+  public void autonomousPeriodic() {
+    
+  }
+
 
   public void robotInit() {
     left.setInverted(true);

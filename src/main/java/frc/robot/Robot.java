@@ -37,6 +37,8 @@ public class Robot extends TimedRobot {
   //Xbox Controller
   XboxController controller = new XboxController(1);
 
+  Timer time = new Timer();
+
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;

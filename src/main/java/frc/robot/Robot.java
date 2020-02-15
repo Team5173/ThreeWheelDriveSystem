@@ -25,26 +25,24 @@ public class Robot extends TimedRobot {
 
   //Victor Implementation
   private VictorSP leftSnowblower = new VictorSP(0);
-  private VictorSP rightSnowblower = new VictorSP(1);
-
-  //Left and Right SpeedControllerGroups for our Three Motor Drivetrain
-  SpeedControllerGroup left = new SpeedControllerGroup(topLeft, bottomLeftFront, bottomLeftBack);
-  SpeedControllerGroup right = new SpeedControllerGroup(topRight, bottomRightFront, bottomRightBack);
+  //private VictorSP rightSnowblower = new VictorSP(1);
 
   //Differential Drive for our Three Wheel NEO
-  private DifferentialDrive threeWheel = new DifferentialDrive(left, right);
+  private DifferentialDrive threeWheel = new DifferentialDrive(topLeft, topRight);
 
   //Xbox Controller
   XboxController controller = new XboxController(1);
-
-  Timer time = new Timer();
 
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
 
   public void autonomousInit() {
+    bottomLeftFront.follow(topLeft);
+    bottomLeftBack.follow(topLeft);
 
+    bottomRightFront.follow(topRight);
+    bottomRightBack.follow(topRight);
   }
 
   public void autonomousPeriodic() {
@@ -53,20 +51,24 @@ public class Robot extends TimedRobot {
 
 
   public void robotInit() {
-    left.setInverted(true);
+    topLeft.setInverted(true);
 
-    if(controller.getRawAxis(5) > 0.7){
-      leftSnowblower.setSpeed(0.7);
-      rightSnowblower.setSpeed(-0.7);
-    }else if(controller.getRawAxis(5)< -0.7){
-      leftSnowblower.setSpeed(-0.7);
-      rightSnowblower.setSpeed(0.7);
-    }
+    bottomLeftFront.follow(topLeft);
+    bottomLeftBack.follow(topLeft);
 
-    threeWheel.arcadeDrive(controller.getRawAxis(1), controller.getRawAxis(0));
+    bottomRightFront.follow(topRight);
+    bottomRightBack.follow(topRight);
   }
 
   public void teleopPeriodic() {
-    
+    if(controller.getRawAxis(5) > 0.7){
+      leftSnowblower.setSpeed(0.7);
+      //rightSnowblower.setSpeed(-0.7);
+    }else if(controller.getRawAxis(5)< -0.7){
+      leftSnowblower.setSpeed(-0.7);
+      //rightSnowblower.setSpeed(0.7);
+    }
+
+    threeWheel.arcadeDrive(controller.getRawAxis(1), controller.getRawAxis(0));
+    }
   }
-}
